@@ -27,15 +27,21 @@
             var storedFrench = [];
             var storedEnglish = [];
             var seenWords = [];
+            
+            
 
             if (sessionStorage.length != 0) {
-                
-                
-                var testitem = document.createElement('li');
-                testitem.innerHTML = 'test';
-                document.getElementById("wordlist").appendChild(testitem);
+                seenWords = JSON.parse(sessionStorage.getItem('usedWords'));
+                for (let i = 0; i < seenWords.length; i++) {
+                    var item = document.createElement('li');
+                    item.innerHTML = seenWords[i];
+                    document.getElementById("wordlist").appendChild(item);
 
+                }
+                
             }
+               
+            
 
             async function start() {
                 if (sessionStorage.length != 0) {
@@ -46,6 +52,7 @@
                 }
 
                 sessionStorage.clear();
+                seenWords.length = 0;
                 
 
                 const freList = [];
@@ -62,6 +69,7 @@
                 
                 sessionStorage.setItem('frenchList', JSON.stringify(freList));
                 sessionStorage.setItem('englishList', JSON.stringify(engList));
+            
                 storedFrench = JSON.parse(sessionStorage.getItem('frenchList'));
                 storedEnglish = JSON.parse(sessionStorage.getItem('englishList'));
 
@@ -72,9 +80,12 @@
 
             function newWord() {
 
+                
+
                 if (storedFrench.length === 0) {
                     storedFrench = JSON.parse(sessionStorage.getItem('frenchList'));
                     storedEnglish = JSON.parse(sessionStorage.getItem('englishList'));
+                    
 
                 }
 
@@ -86,10 +97,16 @@
                 storedEnglish = JSON.parse(sessionStorage.getItem('englishList'));
 
 
-                var word = document.createElement("li");
+                let word = document.createElement("li");
                 word.innerHTML = w1 + ' = ' + w2;
-                seenWords.push(word);
+                //console.log(word.innerHTML);
+                seenWords.push(word.innerHTML);
                 document.getElementById("wordlist").appendChild(word);
+                sessionStorage.setItem('usedWords', JSON.stringify(seenWords));
+                seenWords = JSON.parse(sessionStorage.getItem('usedWords'));
+
+                //sessionStorage.setItem('usedWords', JSON.stringify(seenWords));
+                //seenWords = JSON.parse(sessionStorage.getItem('wordlist'));
 
 
                 
@@ -98,9 +115,9 @@
             }
 
             function test() {
-                for (let i = 0; i < seenWords.length; i++) {
-                    console.log(seenWords[i].innerHTML);
-                }
+                console.log(sessionStorage);
+                console.log(seenWords);
+                
 
                 
                 
