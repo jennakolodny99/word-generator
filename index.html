@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Word Generator</title>
+    </head>
+
+    <body>
+        <h1>Word Generator Application</h1>
+        <button onClick="start()">New session</button>
+        <button onClick="newWord()">Generate a word!</button>
+        <button onClick="test()">test</button>
+      
+        <ul id="wordlist">
+            
+        </ul>
+
+        <script>
+
+                
+            //https://1000mostcommonwords.com/1000-most-common-french-words/
+            
+          
+                
+            var storedFrench = [];
+            var storedEnglish = [];
+            var seenWords = [];
+
+            if (sessionStorage.length != 0) {
+                
+                
+                var testitem = document.createElement('li');
+                testitem.innerHTML = 'test';
+                document.getElementById("wordlist").appendChild(testitem);
+
+            }
+
+            async function start() {
+                if (sessionStorage.length != 0) {
+                    let l = document.getElementById('wordlist');
+                        while (l.firstChild) {
+                            l.removeChild(l.firstChild);
+                        }
+                }
+
+                sessionStorage.clear();
+                
+
+                const freList = [];
+                const engList = [];
+                const list = await generateList();
+                //console.log(list.length);
+                for (let i = 0; i < list.length; i++){
+                    
+                    const frenchWord = list[i].fre;
+                    freList.push(frenchWord);
+                    const englishWord = list[i].eng;
+                    engList.push(englishWord);
+                }
+                
+                sessionStorage.setItem('frenchList', JSON.stringify(freList));
+                sessionStorage.setItem('englishList', JSON.stringify(engList));
+                storedFrench = JSON.parse(sessionStorage.getItem('frenchList'));
+                storedEnglish = JSON.parse(sessionStorage.getItem('englishList'));
+
+                
+                
+            }
+            
+
+            function newWord() {
+
+                if (storedFrench.length === 0) {
+                    storedFrench = JSON.parse(sessionStorage.getItem('frenchList'));
+                    storedEnglish = JSON.parse(sessionStorage.getItem('englishList'));
+
+                }
+
+                var w1 = storedFrench.pop();
+                var w2 = storedEnglish.pop();
+                sessionStorage.setItem('frenchList',JSON.stringify(storedFrench));
+                storedFrench = JSON.parse(sessionStorage.getItem('frenchList'));
+                sessionStorage.setItem('englishList',JSON.stringify(storedEnglish));
+                storedEnglish = JSON.parse(sessionStorage.getItem('englishList'));
+
+
+                var word = document.createElement("li");
+                word.innerHTML = w1 + ' = ' + w2;
+                seenWords.push(word);
+                document.getElementById("wordlist").appendChild(word);
+
+
+                
+                
+                
+            }
+
+            function test() {
+                for (let i = 0; i < seenWords.length; i++) {
+                    console.log(seenWords[i].innerHTML);
+                }
+
+                
+                
+            }
+
+            
+            
+
+            async function generateList() {
+                const words = [];
+                
+
+                const response = await fetch('wordList.csv');
+                const list = await response.text();
+                const table = list.split('\n').slice(1);
+                
+                table.forEach( row => {
+                    const column = row.split(',');
+                    const word = {};
+                    word.fre = column[1];
+                    word.eng = column[2];
+                    words.push(word);
+                });
+                
+                
+                return words;
+
+            }
+
+            
+
+
+        </script>
+    </body>
+
+</html>
