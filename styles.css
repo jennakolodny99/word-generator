@@ -1,15 +1,16 @@
 
 body{
-    background-color: aqua;
-    
+    background-color: honeydew;
 }
 
 
 
 button.newSessionClass{
-    background-color: lightpink;
+    background-color: rgb(243, 41, 41);
+    
 }
 
 button.newWordClass{
-    background-color: lightpink;
+    background-color: lawngreen;
+    
 }
