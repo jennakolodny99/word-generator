@@ -11,6 +11,7 @@
     <body>
         <h1>Word Generator Application</h1>
         <button class="newWordClass" onClick="newWord()">New Word</button>
+        <button class="quiz" onClick="quizMe()">Quiz</button>
         <button class="newSessionClass" onClick="start()">Clear List</button>
         <h3>My Words:</h3>
         <div>
@@ -19,15 +20,13 @@
             </ul>
         </div>
 
-        <p>add some sort of quiz yourself functionality?</p>
-
         <script>
 
                 
             //https://1000mostcommonwords.com/1000-most-common-french-words/
             
           
-                
+              
             var storedFrench = [];
             var storedEnglish = [];
             var seenWords = [];
@@ -103,25 +102,12 @@
 
                 let word = document.createElement("li");
                 word.innerHTML = w1 + ' = ' + w2;
-                //console.log(word.innerHTML);
                 seenWords.push(word.innerHTML);
                 document.getElementById("wordlist").appendChild(word);
                 sessionStorage.setItem('usedWords', JSON.stringify(seenWords));
                 seenWords = JSON.parse(sessionStorage.getItem('usedWords'));
 
-                //sessionStorage.setItem('usedWords', JSON.stringify(seenWords));
-                //seenWords = JSON.parse(sessionStorage.getItem('wordlist'));
-
-
-                
-                
-                
             }
-
-           
-
-            
-            
 
             async function generateList() {
                 const words = [];
@@ -138,9 +124,16 @@
                     word.eng = column[2];
                     words.push(word);
                 });
-                
-                
+              
                 return words;
+
+            }
+
+            function quizMe() {
+                if (seenWords.length != 0) {
+                    console.log(seenWords);
+
+                }
 
             }
 

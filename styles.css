@@ -12,7 +12,6 @@ ul.listOfWords{
     padding-left: 0;
     text-align: left;
     
-   
 }
 
 
@@ -26,4 +25,8 @@ button.newSessionClass{
 button.newWordClass{
     background-color: lawngreen;
     
+}
+
+button.quiz{
+    background-color: aquamarine;
 }
