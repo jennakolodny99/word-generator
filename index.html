@@ -11,7 +11,9 @@
     <body>
         <h1>Word Generator Application</h1>
         <button class="newWordClass" onClick="newWord()">New Word</button>
-        <button class="quiz" onClick="quizMe()">Quiz</button>
+        <a href="quiz.html" target="_blank">
+            <button class="quiz" onClick="quizMe()">Quiz</button>
+        </a>
         <button class="newSessionClass" onClick="start()">Clear List</button>
         <h3>My Words:</h3>
         <div>
@@ -132,6 +134,7 @@
             function quizMe() {
                 if (seenWords.length != 0) {
                     console.log(seenWords);
+                    
 
                 }
 

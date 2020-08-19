@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="styles.css">
+        <title>Quiz</title>
+    </head>
+    <body>
+        <h1>quiz!</h1>
+        <p>Click submit to check your answers</p>
+        <p id="guessed"></p>
+        
+        
+
+
+        <script>
+        
+            var seenWords = [];
+            seenWords = JSON.parse(sessionStorage.getItem('usedWords'));
+            console.log(seenWords);
+            const w = seenWords[0];
+            console.log(w);
+            console.log(typeof w);
+            var w1 = w.split(" ");
+            console.log(w1[0]);
+            console.log(w1[2]);
+
+            //for (let i = 0; i < seenWords.length; i++){
+                const d = document.createElement("div");
+                const word = document.createElement("p");
+                //var box = document.createElement("INPUT");
+               // box.setAttribute("type", "text");
+               // box.id = "guess";
+                
+               
+                //const itemString = seenWords[i];
+                const itemString = seenWords[0];
+                const itemArray = itemString.split(" ");
+                const fre = itemArray[0];
+                const eng = itemArray[2];
+                word.innerHTML = eng;
+                document.body.append(d);
+                document.body.append(word);   
+                //document.body.append(box); 
+               // document.body.append(d); 
+
+
+               var t = document.getElementById('guessed');
+                     
+            //}
+           // const space = document.createElement("p");
+           // space.innerHTML = "Click submit to check your answers"; 
+            function guess() {
+                var input = document.getElementById('userInput').value;
+                if (input === fre){
+                    alert('Correct!');
+                }
+                else{
+                    alert('Try again')
+                }
+                
+            }
+           // document.body.append(space);
+            //document.body.append(b);
+
+           // document.body.append(t);
+
+            
+            
+
+
+        
+        </script>
+        <form id="quizzing">
+            <input type="text" id="userInput">
+            <input type="submit" onclick="guess()">
+        </form>
+
+    </body>
+</html>
